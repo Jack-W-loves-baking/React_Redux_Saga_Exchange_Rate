@@ -1,7 +1,8 @@
-// @ts-nocheck
 import React from 'react';
 
-const HeaderText = (props) => {
+import {headerText} from "../utils/types";
+
+const HeaderText = (props:headerText) => {
     return (
         <h1 >
             {props.headerText}

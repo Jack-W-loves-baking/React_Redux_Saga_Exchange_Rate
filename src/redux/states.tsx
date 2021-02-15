@@ -2,33 +2,23 @@ import {convertDateToFormattedString, getNDaysBeforeNow} from "../utils/dateUtil
 
 export const States = {
 
-    //for compare page
+    //for compare two currencies page
     baseCurrency: 'NZD',
-
     comparedCurrency: 'CNY',
-
-
     orders: ['ascending', 'descending'],
-
     order: 'ascending',
-
-    startDate:convertDateToFormattedString(getNDaysBeforeNow(7)),
-
-
+    startDate: convertDateToFormattedString(getNDaysBeforeNow(7)),
     endDate: convertDateToFormattedString(new Date()),
+    comparedTableData: {},
 
+    //for show all currencies page
     currency: 'NZD',
-
-    isLoading: true,
-
-    date:convertDateToFormattedString(new Date()),
-
-    hasLoadedInitialTableData : false,
-
-    hasLoadedCurrencyFullNameList: false,
-
+    date: convertDateToFormattedString(new Date()),
     tableData: {},
 
+    //for common use
+    displayedCurrencies: ["CNY", "USD", "AUD", "NZD", "CAD", "JPY"],
+    displayedCurrenciesInFullName: [],
     tableColumn: [
         {
             title: 'Curreny',
@@ -40,10 +30,4 @@ export const States = {
             field: 'Value'
         }
     ],
-
-
-    //for common use
-    displayedCurrencies : ["CNY", "USD", "AUD", "NZD", "CAD", "JPY"],
-    displayedCurrenciesInFullName:[],
-
 }

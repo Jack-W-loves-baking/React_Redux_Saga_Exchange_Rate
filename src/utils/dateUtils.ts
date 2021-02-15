@@ -3,7 +3,7 @@
  *
  * @param date
  */
-export function convertDateToFormattedString (date: Date) {
+export function convertDateToFormattedString(date: Date) {
 
     //month/day 1-9 change to 01-09.
     const getCurrentDayOrMonth = (month: number) => {
@@ -17,7 +17,13 @@ export function convertDateToFormattedString (date: Date) {
     return year + "-" + month + "-" + day;
 }
 
-export function getNDaysBeforeNow (numberOfDays : number) {
+/**
+ * get the date which is N days before now.
+ * returns a date.
+ *
+ * @param numberOfDays
+ */
+export function getNDaysBeforeNow(numberOfDays: number) {
 
     let date = new Date();
     date.setDate(date.getDate() - numberOfDays);

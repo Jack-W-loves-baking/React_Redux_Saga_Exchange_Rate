@@ -1,6 +1,5 @@
-// @ts-nocheck
 import {createStyles, Theme, withStyles, makeStyles} from "@material-ui/core/styles";
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import Table from '@material-ui/core/Table';
@@ -8,8 +7,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import {useSelector} from "react-redux";
-import getSymbolFromCurrency from "currency-symbol-map";
-import {convertToTwoDecimals} from "../utils/stringUtils";
+
+import {ratesTable} from "../utils/types";
 
 const StyledTableCell = withStyles((theme: Theme) =>
     createStyles({
@@ -42,30 +41,12 @@ const useStyles = makeStyles({
 
 
 // @ts-ignore
-const MyTable = (props) => {
+const MyTable = (props:ratesTable) => {
 
     const classes = useStyles();
 
-    let tableBody = [];
-
-    const tableData = useSelector(state => state.tableData);
+    // @ts-ignore
     const columns = useSelector(state => state.tableColumn[props.columnId]);
-    const currenciesInShortName = useSelector(state => state.displayedCurrencies);
-
-    const createTableBody = () =>{
-        for (const [key, value] of Object.entries(tableData)) {
-            if (currenciesInShortName.includes(key)) {
-                tableBody.push(
-                    <StyledTableRow key={`${key}`}>
-                        <StyledTableCell align="left">{`${key}`}</StyledTableCell>
-                        <StyledTableCell
-                            align="left">{getSymbolFromCurrency(key) + convertToTwoDecimals(value)}</StyledTableCell>
-                    </StyledTableRow>
-                )
-            }
-        }
-        return tableBody;
-    }
 
     return (
         <TableContainer>
@@ -77,7 +58,7 @@ const MyTable = (props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {createTableBody}
+                    {props.createBody}
                 </TableBody>
             </Table>
         </TableContainer>

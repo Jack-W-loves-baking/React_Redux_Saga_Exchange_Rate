@@ -1,20 +1,19 @@
-// @ts-nocheck
-
 import React from 'react';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+
+import {datePicker} from "../utils/types";
 
 const useStyles = makeStyles((theme) =>
 
     createStyles({
         datepicker: {
             marginLeft: theme.spacing(5),
-            marginRight: theme.spacing(0),
             width: 150,
         }
     }));
 
-const DatePicker = (props) => {
+const DatePicker = (props:datePicker) => {
 
     const classes = useStyles();
 
@@ -37,6 +36,7 @@ const DatePicker = (props) => {
     )
 }
 
+//Traditional way not using hooks.
 // const mapStateToProps = (state: any) => ({
 //     currency: state.currency,
 //     loading: state.loading

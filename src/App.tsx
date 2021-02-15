@@ -1,27 +1,40 @@
-// @ts-nocheck
-import React, {useEffect, useState} from 'react';
+/************************************************************************************************
+ * This is my project for react induction, refer to confluence ticket ---
+ * https://ezyvet.atlassian.net/wiki/spaces/DEV/pages/888209690/React+Dev+Onboarding
+ *
+ *
+ * Highlights:
+ * 1. React + Redux
+ * 2. Two pages routing
+ * 3. Data from : api.exchangeratesapi.io
+ * 4. Saga mid layer handle all api calls
+ *
+ * Author: Jack Wang
+ * Since: 15 Feb 2021
+ *
+ *
+ *
+ * ***********************************************************************************************
+ */
+import React, {useEffect} from 'react';
 import {createStyles, makeStyles} from "@material-ui/styles";
-import Grid from '@material-ui/core/Grid';
-import {useSelector, useDispatch} from 'react-redux'
-
-import Selection from './components/Selection';
-import DatePicker from './components/DatePicker';
-import HeaderText from './components/HeaderText';
-import RatesTable from './components/RatesTable';
-import {GET_CURRENCIES_IN_FULL_NAME_SUCCESS, GET_INITIAL_RATES_SUCCESS} from "./redux/actions";
-import LoadingSpin from "./components/LoadingSpin";
-
-
-import ReactDOM from "react-dom";
+import {useDispatch} from 'react-redux'
+import {
+    GET_CURRENCIES_IN_FULL_NAME_SUCCESS,
+    GET_COMPARED_RATES_SUCCESS,
+    GET_UPDATED_RATES_SUCCESS
+} from "./redux/actions";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import {Switch, Route, BrowserRouter, Link} from "react-router-dom";
 import {AppBar} from "@material-ui/core";
+
 import ShowAllRates from "./pages/ShowAllRates";
 import CompareRates from "./pages/CompareRates";
 import NotFound from "./pages/NotFound";
 
-const useStyles = makeStyles((theme: any) =>
+
+const useStyles = makeStyles((theme) =>
 
     createStyles({
         container: {
@@ -39,40 +52,49 @@ const useStyles = makeStyles((theme: any) =>
 
 function App() {
 
+    const classes = useStyles();
+
     const dispatch = useDispatch();
 
+    /**
+     * Dispatch the action when the project is on loading. Sage will listen to action type : GET_CURRENCIES_IN_FULL_NAME_SUCCESS,
+     * and then make api call to get the full currencies names.
+     */
     const getCurrencyFullName = () => dispatch({type: GET_CURRENCIES_IN_FULL_NAME_SUCCESS});
-
     useEffect((() => {
         getCurrencyFullName();
     }), [])
 
-    const getInitialRates = () => dispatch({type: GET_INITIAL_RATES_SUCCESS});
-
+    /**
+     * Dispatch the action when the project is on loading. Sage will listen to action type : GET_INITIAL_RATES_SUCCESS,
+     * and then make api call to get the initial value object for ShowAll page.
+     */
+    const getInitialRates = () => dispatch({type: GET_UPDATED_RATES_SUCCESS});
     useEffect((() => {
         getInitialRates();
     }), [])
 
-    const getInitialComparedRates = () => dispatch({type: GET_INITIAL_RATES_SUCCESS});
 
+    /**
+     * Dispatch the action when the project is on loading. Sage will listen to action type : GET_COMPARED_RATES_SUCCESS,
+     * and then make api call to get the initial value object for CompareRates page.
+     */
+    const getInitialComparedRates = () => dispatch({type: GET_COMPARED_RATES_SUCCESS});
     useEffect((() => {
-        getInitialRates();
+        getInitialComparedRates();
     }), [])
 
+
+    //List of routers
     const routers = ['/showall', '/compare'];
-    const classes = useStyles();
 
-    //const shouldRenderSpinner = useSelector(state =>state.isLoading);
-    //{shouldRenderSpinner && <LoadingSpin/>}
     return (
-
         <div className={classes.container}>
-
             <BrowserRouter>
                 <Route path='/'
                 render={(history)=>(
                     <AppBar position="static">
-                        <Tabs value={history.location.pathname}>
+                        <Tabs value={history.location.pathname !== '/'? history.location.pathname : false}>
                             <Tab label="SHOW ALL"
                                  value={routers[0]}
                                  component={Link}
@@ -88,16 +110,17 @@ function App() {
 
                 </Route>
                 <Switch>
+                    {/*use exact path to avoid partial match.*/}
+                    {/*    e.g -> /showall/jack is not allowed here*/}
                     <Route exact path='/showall' component={ShowAllRates}/>
                     <Route exact path='/compare' component={CompareRates}/>
                     <Route exact path='/' component={ShowAllRates}/>
+
+                    {/*if the path does not match, redirected to NOT Found page*/}
                     <Route component={NotFound} />
                 </Switch>
             </BrowserRouter>
-
-
         </div>
-
     );
 }
 

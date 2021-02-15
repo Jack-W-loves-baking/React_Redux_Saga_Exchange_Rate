@@ -1,8 +1,8 @@
 /**
- * Convert any number type variable to 3 decimals
+ * Convert any number type variable to 3-decimal string
  *
  * @param number
  */
-export function convertToTwoDecimals(number: number) {
+export function convertToThreeDecimals(number: number) {
     return number.toFixed(3);
 }
