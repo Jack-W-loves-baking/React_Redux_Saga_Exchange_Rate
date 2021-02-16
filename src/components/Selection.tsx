@@ -27,7 +27,6 @@ const Selection = (props:selection) => {
                 </InputLabel>
                 <Select
                     labelId={props.id}
-                    label={props.labelText}
                     value={props.selectionValue}
                     className={classes.dropdown}
                     onChange={props.onChange}
