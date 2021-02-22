@@ -1,11 +1,11 @@
 import React from 'react';
 
 import Select from '@material-ui/core/Select';
-import {createStyles, makeStyles} from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import {selection} from "../utils/types";
+import { selection } from "../utils/types";
 
 
 const useStyles = makeStyles((theme) =>
@@ -15,24 +15,23 @@ const useStyles = makeStyles((theme) =>
         },
     }));
 
-const Selection = (props:selection) => {
-
+const Selection = ({ id, labelText, selectionValue, onChange, selectionOptions } :selection) => {
     const classes = useStyles();
 
     return (
         <div>
             <FormControl>
-                <InputLabel shrink id={props.id}>
-                    {props.labelText}
+                <InputLabel shrink id={id}>
+                    {labelText}
                 </InputLabel>
                 <Select
-                    labelId={props.id}
-                    label={props.labelText}
-                    value={props.selectionValue}
+                    labelId={id}
+                    label={labelText}
+                    value={selectionValue}
                     className={classes.dropdown}
-                    onChange={props.onChange}
+                    onChange={onChange}
                 >
-                    {props.selectionOptions}
+                    {selectionOptions}
                 </Select>
             </FormControl>
         </div>

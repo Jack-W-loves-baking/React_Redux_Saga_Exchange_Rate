@@ -1,11 +1,10 @@
 import React from 'react';
-import {createStyles, makeStyles} from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-import {datePicker} from "../utils/types";
+import { datePicker } from "../utils/types";
 
 const useStyles = makeStyles((theme) =>
-
     createStyles({
         datepicker: {
             marginLeft: theme.spacing(5),
@@ -13,38 +12,26 @@ const useStyles = makeStyles((theme) =>
         }
     }));
 
-const DatePicker = (props:datePicker) => {
-
+const DatePicker = ({ id, dateValue, label, onChange } : datePicker) => {
     const classes = useStyles();
 
     return (
         <div>
             <form>
             <TextField
-                id={props.id}
+                id={id}
                 type="date"
-                defaultValue= {props.dateValue}
-                label={props.label}
+                defaultValue= {dateValue}
+                label={label}
                 className={classes.datepicker}
                 InputLabelProps={{
                     shrink: true,
                 }}
-                onChange={props.onChange}
+                onChange={onChange}
             />
             </form>
         </div>
     )
 }
 
-//Traditional way not using hooks.
-// const mapStateToProps = (state: any) => ({
-//     currency: state.currency,
-//     loading: state.loading
-// })
-//
-// const mapDispatchToProps = (dispatch: any) => ({
-//     getCurrencyFullName: () => dispatch({type: GET_CURRENCIES_IN_FULL_NAME})
-//
-// })
-// export default connect(mapStateToProps, mapDispatchToProps)(DatePicker);
 export default DatePicker;

@@ -16,6 +16,7 @@ import {
     updateOrder
 } from "../redux/actions";
 import {convertToThreeDecimals} from "../utils/stringUtils";
+import { compareCurrencyAndValue, compareData, compareDataItem} from "../utils/types";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -50,20 +51,13 @@ const CompareRates = () => {
     const classes = useStyles();
 
     //Fetch state from store
-    // @ts-ignore
-    const currenciesInFullName = useSelector(state => state.displayedCurrenciesInFullName);
-    // @ts-ignore
-    const currenciesInShortName = useSelector(state => state.displayedCurrencies);
-    // @ts-ignore
-    const baseCurrency = useSelector(state => state.baseCurrency);
-    // @ts-ignore
-    const comparedCurrency = useSelector(state => state.comparedCurrency);
-    // @ts-ignore
-    const orders = useSelector(state => state.orders);
-    // @ts-ignore
-    const comparedTableData = useSelector(state => state.comparedTableData);
-    // @ts-ignore
-    const order = useSelector(state => state.order);
+    const currenciesInFullName = useSelector((state:any) => state.displayedCurrenciesInFullName);
+    const currenciesInShortName = useSelector((state:any) => state.displayedCurrencies);
+    const baseCurrency = useSelector((state:any) => state.baseCurrency);
+    const comparedCurrency = useSelector((state:any) => state.comparedCurrency);
+    const orders = useSelector((state:any) => state.orders);
+    const comparedTableData = useSelector((state:any) => state.comparedTableData);
+    const order = useSelector((state:any) => state.order);
 
 
     const dispatch = useDispatch();
@@ -160,8 +154,10 @@ const CompareRates = () => {
      * @param object
      */
     const descendingOrder = (object:object) => {
-        // @ts-ignore
-        return Object.entries(comparedTableData).sort((a, b) => Object.values(b[1]) - Object.values(a[1]))
+        return Object.entries(comparedTableData as compareData)
+            .sort((a:compareDataItem , b:compareDataItem) =>
+                (Object.values(b[1]) as unknown as number)
+                - (Object.values(a[1]) as unknown as number))
     }
 
     /**
@@ -171,8 +167,10 @@ const CompareRates = () => {
      * @param object
      */
     const ascendingOrder = (object:object) => {
-        // @ts-ignore
-        return Object.entries(comparedTableData).sort((a, b) => Object.values(a[1]) - Object.values(b[1]))
+        return (Object.entries(comparedTableData as compareData))
+            .sort((a:compareDataItem , b:compareDataItem) =>
+                (Object.values(a[1]) as unknown as number)
+                - (Object.values(b[1]) as unknown as number))
     }
 
     let sortedTableData: Object[] = [];
@@ -183,10 +181,13 @@ const CompareRates = () => {
         sortedTableData = descendingOrder(comparedTableData)
     }
 
+console.log(sortedTableData);
 
     let result : object[]= []
     const createTableBody = () => {
-        sortedTableData.map((ele) => {
+        sortedTableData.map((ele:object) => {
+            console.log(ele);
+
             result.push(
                     <StyledTableRow>
                         <StyledTableCell
@@ -196,9 +197,9 @@ const CompareRates = () => {
                             align="left">
                             {
                                 // @ts-ignore
-                                Object.entries(ele[1]).map(v => {
-                                    // @ts-ignore
-                                        return v[0] + ' ' + convertToThreeDecimals(v[1])
+                                Object.entries(ele[1] ).map((v) => {
+
+                                        return (v[0] )+ ' ' + convertToThreeDecimals(v[1] as number)
                                     }
                                 )}
                         </StyledTableCell>

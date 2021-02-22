@@ -1,4 +1,4 @@
-import {createStyles, Theme, withStyles, makeStyles} from "@material-ui/core/styles";
+import { createStyles, Theme, withStyles, makeStyles } from "@material-ui/core/styles";
 import React from 'react';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
@@ -6,9 +6,9 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
-import {ratesTable} from "../utils/types";
+import { ratesTable } from "../utils/types";
 
 const StyledTableCell = withStyles((theme: Theme) =>
     createStyles({
@@ -22,16 +22,6 @@ const StyledTableCell = withStyles((theme: Theme) =>
     }),
 )(TableCell);
 
-const StyledTableRow = withStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            '&:nth-of-type(odd)': {
-                backgroundColor: theme.palette.action.hover,
-            },
-        },
-    }),
-)(TableRow);
-
 const useStyles = makeStyles({
     table: {
         width: '70vw',
@@ -40,13 +30,10 @@ const useStyles = makeStyles({
 });
 
 
-// @ts-ignore
-const MyTable = (props:ratesTable) => {
-
+const MyTable = ({ columnId, createBody } : ratesTable) => {
     const classes = useStyles();
 
-    // @ts-ignore
-    const columns = useSelector(state => state.tableColumn[props.columnId]);
+    const columns = useSelector((state:any) => state.tableColumn[columnId]);
 
     return (
         <TableContainer>
@@ -58,7 +45,7 @@ const MyTable = (props:ratesTable) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.createBody}
+                    {createBody}
                 </TableBody>
             </Table>
         </TableContainer>

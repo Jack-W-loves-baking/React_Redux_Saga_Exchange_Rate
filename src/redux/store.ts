@@ -8,8 +8,7 @@ import rootSaga from './saga';
 const sagaMiddleware = createSagaMiddleware()
 
 //for redux debug config
-// @ts-ignore
-const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose || compose;
+const composeEnhancers = (window as any)['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose || compose;
 
 const enhancer = composeEnhancers(
     applyMiddleware(sagaMiddleware),
