@@ -26,7 +26,6 @@ const Selection = ({ id, labelText, selectionValue, onChange, selectionOptions }
                 </InputLabel>
                 <Select
                     labelId={id}
-                    label={labelText}
                     value={selectionValue}
                     className={classes.dropdown}
                     onChange={onChange}
