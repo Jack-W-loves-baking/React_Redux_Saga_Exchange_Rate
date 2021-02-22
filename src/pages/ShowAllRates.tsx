@@ -14,11 +14,10 @@ import RatesTable from "../components/RatesTable";
 import HeaderText from "../components/HeaderText";
 import {convertToThreeDecimals} from "../utils/stringUtils";
 import {getUpdatedRates, updateBaseCurrency, updateDate} from "../redux/actions";
+import { useTypedSelector } from '../utils/types'
 
 const useStyles = makeStyles((theme: Theme) =>
-
     createStyles({
-
         selectors: {
             display: 'flex',
             flexDirection: 'row',
@@ -36,20 +35,14 @@ const useStyles = makeStyles((theme: Theme) =>
     }));
 
 const ShowAllRates = () => {
-
     const classes = useStyles();
 
     //Fetch state from store
-    // @ts-ignore
-    const currenciesInFullName = useSelector(state => state.displayedCurrenciesInFullName);
-    // @ts-ignore
-    const currenciesInShortName = useSelector(state => state.displayedCurrencies);
-    // @ts-ignore
-    const currency = useSelector(state => state.currency);
-    // @ts-ignore
-    const tableData = useSelector(state => state.tableData);
-    // @ts-ignore
-    const dateValue = useSelector(state => state.date);
+    const currenciesInFullName = useTypedSelector(state => state.displayedCurrenciesInFullName);
+    const currenciesInShortName = useTypedSelector(state => state.displayedCurrencies);
+    const currency = useTypedSelector(state => state.currency);
+    const tableData = useTypedSelector(state => state.tableData);
+    const dateValue = useTypedSelector(state => state.date);
 
     const dispatch = useDispatch();
 
@@ -77,8 +70,9 @@ const ShowAllRates = () => {
     const selectionOptions = currenciesInShortName
         .map((ele: string) => (
                 <MenuItem value={ele}>
-                    {Object.keys(currenciesInFullName).map(key => {
+                    {Object.keys(currenciesInFullName).map((key:string) => {
                         if (key === ele) {
+                            // @ts-ignore
                             return currenciesInFullName[ele];
                         }
                         return null;
@@ -133,7 +127,6 @@ const ShowAllRates = () => {
         }
         return tableBody;
     }
-
 
     return (
         <div className={classes.showAllContainer}>
