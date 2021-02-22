@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {headerText} from "../utils/types";
+import { headerText } from "../utils/types";
 
-const HeaderText = (props:headerText) => {
+const HeaderText = ({ headerText } : headerText) => {
     return (
         <h1 >
-            {props.headerText}
+            {headerText}
         </h1>
     )
 }
