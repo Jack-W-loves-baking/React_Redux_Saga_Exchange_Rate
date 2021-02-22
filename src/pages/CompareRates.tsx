@@ -17,6 +17,7 @@ import {
 } from "../redux/actions";
 import {convertToThreeDecimals} from "../utils/stringUtils";
 import { compareCurrencyAndValue, compareData, compareDataItem} from "../utils/types";
+import { useTypedSelector } from '../utils/types'
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -51,13 +52,13 @@ const CompareRates = () => {
     const classes = useStyles();
 
     //Fetch state from store
-    const currenciesInFullName = useSelector((state:any) => state.displayedCurrenciesInFullName);
-    const currenciesInShortName = useSelector((state:any) => state.displayedCurrencies);
-    const baseCurrency = useSelector((state:any) => state.baseCurrency);
-    const comparedCurrency = useSelector((state:any) => state.comparedCurrency);
-    const orders = useSelector((state:any) => state.orders);
-    const comparedTableData = useSelector((state:any) => state.comparedTableData);
-    const order = useSelector((state:any) => state.order);
+    const currenciesInFullName = useTypedSelector(state => state.displayedCurrenciesInFullName);
+    const currenciesInShortName = useTypedSelector(state => state.displayedCurrencies);
+    const baseCurrency = useTypedSelector(state => state.baseCurrency);
+    const comparedCurrency = useTypedSelector(state => state.comparedCurrency);
+    const orders = useTypedSelector(state => state.orders);
+    const comparedTableData = useTypedSelector(state => state.comparedTableData);
+    const order = useTypedSelector(state => state.order);
 
 
     const dispatch = useDispatch();
@@ -88,11 +89,13 @@ const CompareRates = () => {
     }
 
 
+
     const baseSelectionOptions = currenciesInShortName
         .map((ele: string) => (
                 <MenuItem value={ele}>
                     {Object.keys(currenciesInFullName).map(key => {
                         if (key === ele) {
+                            // @ts-ignore
                             return currenciesInFullName[ele];
                         }
                         return null;
@@ -103,10 +106,12 @@ const CompareRates = () => {
         )
 
     const comparedSelectionOptions = currenciesInShortName
+        // @ts-ignore
         .map((ele: string) => (
                 <MenuItem value={ele}>
                     {Object.keys(currenciesInFullName).map(key => {
                         if (key === ele) {
+                            // @ts-ignore
                             return currenciesInFullName[ele];
                         }
                         return null;

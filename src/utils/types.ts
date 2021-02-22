@@ -1,3 +1,28 @@
+import { useSelector, TypedUseSelectorHook } from 'react-redux'
+import {convertDateToFormattedString, getNDaysBeforeNow} from "./dateUtils";
+
+interface RootState {
+    baseCurrency: string,
+    comparedCurrency: string,
+    orders: string[],
+    order: string,
+    startDate: string,
+    endDate: string,
+    comparedTableData: object,
+
+    //for show all currencies page
+    currency: string,
+    date: string,
+    tableData: object,
+
+    //for common use
+    displayedCurrencies: string[],
+    displayedCurrenciesInFullName: [],
+    tableColumn: object[]
+}
+
+export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector
+
 export interface selection {
     id?: string,
     labelText?: string,
@@ -31,3 +56,5 @@ export interface compareData {
 }
 
 export type compareDataItem = [string, compareCurrencyAndValue];
+
+
