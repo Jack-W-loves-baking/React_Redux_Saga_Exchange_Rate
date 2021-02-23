@@ -1,4 +1,4 @@
-const { ascendingOrder, descendingOrder } = require('./comparePage');
+import { ascendingOrder, descendingOrder } from '../utils/objectUtils';
 
 const rawData = {
     "2021-02-02": {
@@ -48,8 +48,10 @@ const expectResultDes = [
     ]
 ];
 
-test('sort the object based on the value in ascending order', () => {
-    expect(ascendingOrder(rawData)).toStrictEqual(expectResultAse);
+describe("ascendingOrder", () => {
+    it('will sort the object based on the value in ascending order', () => {
+        expect(ascendingOrder(rawData)).toStrictEqual(expectResultAse);
+    })
 });
 
 test('sort the object based on the value in descending order', () => {

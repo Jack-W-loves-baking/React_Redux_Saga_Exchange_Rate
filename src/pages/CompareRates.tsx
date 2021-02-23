@@ -1,6 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { createStyles, makeStyles, Theme, withStyles } from "@material-ui/core/styles";
+import {useDispatch} from "react-redux";
+import {createStyles, makeStyles, Theme, withStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
@@ -15,9 +15,10 @@ import {
     updateComparedPageBaseCurrency,
     updateOrder
 } from "../redux/actions";
-import { convertToThreeDecimals } from "../utils/stringUtils";
-import { currenciesInFullName, compareData, compareDataItem } from "../utils/types";
-import { useTypedSelector } from '../utils/types'
+import {convertToThreeDecimals} from "../utils/stringUtils";
+import {currenciesInFullName, compareData, compareDataItem} from "../utils/types";
+import {useTypedSelector} from '../utils/types'
+import {ascendingOrder, descendingOrder} from "../utils/objectUtils";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -88,7 +89,6 @@ const CompareRates = () => {
         updateOrderValue(event);
     }
 
-
     const baseSelectionOptions = currenciesInShortName
         .map((ele: string) => (
                 <MenuItem value={ele}>
@@ -125,7 +125,6 @@ const CompareRates = () => {
             )
         )
 
-
     const StyledTableCell = withStyles((theme: Theme) =>
         createStyles({
             head: {
@@ -148,32 +147,6 @@ const CompareRates = () => {
         }),
     )(TableRow);
 
-    /**
-     * Functions to sort the object order by the currency rate in descending.
-     * Then return the new sorted object.
-     *
-     * @param object
-     */
-    const descendingOrder = (object: object) => {
-        return Object.entries(object as compareData)
-            .sort((a: compareDataItem, b: compareDataItem) =>
-                (Object.values(b[1]) as unknown as number)
-                - (Object.values(a[1]) as unknown as number))
-    }
-
-    /**
-     * Functions to sort the object order by the currency rate in ascending.
-     * Then return the new sorted object.
-     *
-     * @param object
-     */
-    const ascendingOrder = (object: object) => {
-        return (Object.entries(object as compareData))
-            .sort((a: compareDataItem, b: compareDataItem) =>
-                (Object.values(a[1]) as unknown as number)
-                - (Object.values(b[1]) as unknown as number))
-    }
-
     let sortedTableData: Object[] = [];
 
     if (order === 'ascending') {
@@ -186,7 +159,7 @@ const CompareRates = () => {
     console.log(sortedTableData);
     const createTableBody = () => {
         (sortedTableData as compareDataItem[]).map((ele: compareDataItem) => {
-            result.push(
+                result.push(
                     <StyledTableRow>
                         <StyledTableCell
                             align="left">{ele[0]}</StyledTableCell>
@@ -203,7 +176,6 @@ const CompareRates = () => {
         )
         return result;
     }
-
 
     return (
         <div className={classes.compareRatesContainer}>
