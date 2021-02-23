@@ -1,5 +1,4 @@
 import { useSelector, TypedUseSelectorHook } from 'react-redux'
-import {convertDateToFormattedString, getNDaysBeforeNow} from "./dateUtils";
 
 interface RootState {
     baseCurrency: string,
@@ -17,7 +16,7 @@ interface RootState {
 
     //for common use
     displayedCurrencies: string[],
-    displayedCurrenciesInFullName: [],
+    displayedCurrenciesInFullName: object,
     tableColumn: object[]
 }
 
@@ -57,4 +56,6 @@ export interface compareData {
 
 export type compareDataItem = [string, compareCurrencyAndValue];
 
-
+export interface currenciesInFullName {
+    [key: string]: string
+}

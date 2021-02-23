@@ -1,7 +1,6 @@
-import {convertDateToFormattedString, getNDaysBeforeNow} from "../utils/dateUtils";
+import { convertDateToFormattedString, getNDaysBeforeNow } from "../utils/dateUtils";
 
 export const States = {
-
     //for compare two currencies page
     baseCurrency: 'NZD',
     comparedCurrency: 'CNY',
@@ -18,7 +17,7 @@ export const States = {
 
     //for common use
     displayedCurrencies: ["CNY", "USD", "AUD", "NZD", "CAD", "JPY"],
-    displayedCurrenciesInFullName: [],
+    displayedCurrenciesInFullName: {},
     tableColumn: [
         {
             title: 'Curreny',

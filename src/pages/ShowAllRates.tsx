@@ -1,10 +1,10 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import {Theme, withStyles} from "@material-ui/core/styles";
+import { Theme, withStyles } from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import {createStyles, makeStyles} from "@material-ui/styles";
-import {useDispatch, useSelector} from "react-redux";
+import { createStyles, makeStyles } from "@material-ui/styles";
+import { useDispatch } from "react-redux";
 import MenuItem from "@material-ui/core/MenuItem";
 import getSymbolFromCurrency from "currency-symbol-map";
 
@@ -12,9 +12,9 @@ import Selection from "../components/Selection";
 import DatePicker from "../components/DatePicker";
 import RatesTable from "../components/RatesTable";
 import HeaderText from "../components/HeaderText";
-import {convertToThreeDecimals} from "../utils/stringUtils";
-import {getUpdatedRates, updateBaseCurrency, updateDate} from "../redux/actions";
-import { useTypedSelector } from '../utils/types'
+import { convertToThreeDecimals } from "../utils/stringUtils";
+import { getUpdatedRates, updateBaseCurrency, updateDate } from "../redux/actions";
+import { currenciesInFullName, useTypedSelector } from '../utils/types'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -70,10 +70,9 @@ const ShowAllRates = () => {
     const selectionOptions = currenciesInShortName
         .map((ele: string) => (
                 <MenuItem value={ele}>
-                    {Object.keys(currenciesInFullName).map((key:string) => {
-                        if (key === ele) {
-                            // @ts-ignore
-                            return currenciesInFullName[ele];
+                    {Object.entries(currenciesInFullName as currenciesInFullName).map((detail:string[]) => {
+                        if (detail[0] === ele) {
+                            return detail[1];
                         }
                         return null;
                     })
