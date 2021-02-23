@@ -16,9 +16,9 @@
  *
  * ***********************************************************************************************
  */
-import React, {useEffect} from 'react';
-import {createStyles, makeStyles} from "@material-ui/styles";
-import {useDispatch} from 'react-redux'
+import React, { useEffect } from 'react';
+import { createStyles, makeStyles } from "@material-ui/styles";
+import { useDispatch } from 'react-redux'
 import {
     GET_CURRENCIES_IN_FULL_NAME_SUCCESS,
     GET_COMPARED_RATES_SUCCESS,
@@ -26,8 +26,8 @@ import {
 } from "./redux/actions";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import {Switch, Route, BrowserRouter, Link} from "react-router-dom";
-import {AppBar} from "@material-ui/core";
+import { Switch, Route, BrowserRouter, Link } from "react-router-dom";
+import { AppBar } from "@material-ui/core";
 
 import ShowAllRates from "./pages/ShowAllRates";
 import CompareRates from "./pages/CompareRates";
@@ -51,7 +51,6 @@ const useStyles = makeStyles((theme) =>
     }));
 
 function App() {
-
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -74,7 +73,6 @@ function App() {
         getInitialRates();
     }), [])
 
-
     /**
      * Dispatch the action when the project is on loading. Sage will listen to action type : GET_COMPARED_RATES_SUCCESS,
      * and then make api call to get the initial value object for CompareRates page.
@@ -83,7 +81,6 @@ function App() {
     useEffect((() => {
         getInitialComparedRates();
     }), [])
-
 
     //List of routers
     const routers = ['/showall', '/compare'];
