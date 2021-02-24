@@ -42,15 +42,11 @@ const ShowAllRates = () => {
   const classes = useStyles();
 
   //Fetch state from store
-  const currenciesInFullName = useTypedSelector(
-    (state) => state.displayedCurrenciesInFullName
-  );
-  const currenciesInShortName = useTypedSelector(
-    (state) => state.displayedCurrencies
-  );
-  const currency = useTypedSelector((state) => state.currency);
-  const tableData = useTypedSelector((state) => state.tableData);
-  const dateValue = useTypedSelector((state) => state.date);
+  const currenciesInFullName = useTypedSelector(state => state.displayedCurrenciesInFullName);
+  const currenciesInShortName = useTypedSelector(state => state.displayedCurrencies);
+  const currency = useTypedSelector(state => state.currency);
+  const tableData = useTypedSelector(state => state.tableData);
+  const dateValue = useTypedSelector(state => state.date);
 
   const dispatch = useDispatch();
 

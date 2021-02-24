@@ -57,19 +57,13 @@ const CompareRates = () => {
   const classes = useStyles();
 
   //Fetch state from store
-  const currenciesInFullName = useTypedSelector(
-    (state) => state.displayedCurrenciesInFullName
-  );
-  const currenciesInShortName = useTypedSelector(
-    (state) => state.displayedCurrencies
-  );
-  const baseCurrency = useTypedSelector((state) => state.baseCurrency);
-  const comparedCurrency = useTypedSelector((state) => state.comparedCurrency);
-  const orders = useTypedSelector((state) => state.orders);
-  const comparedTableData = useTypedSelector(
-    (state) => state.comparedTableData
-  );
-  const order = useTypedSelector((state) => state.order);
+  const currenciesInFullName = useTypedSelector(state => state.displayedCurrenciesInFullName);
+  const currenciesInShortName = useTypedSelector(state => state.displayedCurrencies);
+  const baseCurrency = useTypedSelector(state => state.baseCurrency);
+  const comparedCurrency = useTypedSelector(state => state.comparedCurrency);
+  const orders = useTypedSelector(state => state.orders);
+  const comparedTableData = useTypedSelector(state => state.comparedTableData);
+  const order = useTypedSelector(state => state.order);
 
   const dispatch = useDispatch();
 
