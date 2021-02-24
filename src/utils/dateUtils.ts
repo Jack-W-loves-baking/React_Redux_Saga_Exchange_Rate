@@ -4,17 +4,16 @@
  * @param date
  */
 export function convertDateToFormattedString(date: Date) {
+  //month/day 1-9 change to 01-09.
+  const getCurrentDayOrMonth = (month: number) => {
+    return month < 10 ? "0" + month : month;
+  };
 
-    //month/day 1-9 change to 01-09.
-    const getCurrentDayOrMonth = (month: number) => {
-        return month < 10 ? '0' + month : month;
-    }
+  const month = getCurrentDayOrMonth(date.getUTCMonth() + 1);
+  const day = getCurrentDayOrMonth(date.getUTCDate());
+  const year = date.getUTCFullYear();
 
-    const month = getCurrentDayOrMonth(date.getUTCMonth() + 1);
-    const day = getCurrentDayOrMonth(date.getUTCDate());
-    const year = date.getUTCFullYear();
-
-    return year + "-" + month + "-" + day;
+  return year + "-" + month + "-" + day;
 }
 
 /**
@@ -24,9 +23,8 @@ export function convertDateToFormattedString(date: Date) {
  * @param numberOfDays
  */
 export function getNDaysBeforeNow(numberOfDays: number) {
+  let date = new Date();
+  date.setDate(date.getDate() - numberOfDays);
 
-    let date = new Date();
-    date.setDate(date.getDate() - numberOfDays);
-
-    return date;
+  return date;
 }
