@@ -60,8 +60,10 @@ describe("ascendingOrder", () => {
   });
 });
 
-describe("sort the object based on the value in descending order", () => {
-  expect(descendingOrder(rawData)).toStrictEqual(expectResultDes);
+describe("descending", () => {
+  it("will sort the object based on the value in descending order", () => {
+    expect(descendingOrder(rawData)).toStrictEqual(expectResultDes);
+  });
 });
 
 export {};
