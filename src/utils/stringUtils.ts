@@ -4,5 +4,5 @@
  * @param number
  */
 export function convertToThreeDecimals(number: number) {
-    return number.toFixed(3);
+  return number.toFixed(3);
 }
